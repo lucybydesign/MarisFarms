@@ -12,6 +12,7 @@ public class GameLogic : MonoBehaviour {
     public Text TotKeys;
     public Text CurrKeys;
     public Text TimerText;
+    public Text AlertText;
 
     //timer variables
 
@@ -21,8 +22,8 @@ public class GameLogic : MonoBehaviour {
     {
         //display total keys
         TotKeys.text = " / " + iTotalKeys.ToString();
-
-	}
+        AlertText.text = "";
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -60,6 +61,7 @@ public class GameLogic : MonoBehaviour {
         {
             //call pop up that says you need to collect X number of keys
             Debug.Log("You don't have enough keys!");
+            AlertText.text = "You don't have enough keys!";
         }
     }
    
