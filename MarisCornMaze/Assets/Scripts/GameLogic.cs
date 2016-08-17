@@ -17,6 +17,9 @@ public class GameLogic : MonoBehaviour {
     //timer variables
     public float fTimeElapsed;
 
+    //game logic variables
+    public bool GameStarted; //necessary for preventing the timer from incrementing in menus
+
 	// Use this for initialization
 	void Start ()
     {
@@ -28,8 +31,15 @@ public class GameLogic : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //Updating the time elapsed
-        fTimeElapsed += Time.deltaTime;
+
+        if(GameStarted == true)
+        {
+            //Updating the time elapsed
+            fTimeElapsed += Time.deltaTime;
+        }
+            
+
+        
         //Formatting the time elapsed so that it appears as minutes and seconds
         string minutes = Mathf.Floor(fTimeElapsed / 60).ToString("00");
         string seconds = (fTimeElapsed % 60).ToString("00");
