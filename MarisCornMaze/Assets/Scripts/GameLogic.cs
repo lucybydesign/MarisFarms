@@ -80,7 +80,6 @@ public class GameLogic : MonoBehaviour {
             ThisLevelsExit.GetComponent<ExitGateLogic>().UpdateLockStatus(true);
 
             //PlayWinCondition();
-
             
         }
         else

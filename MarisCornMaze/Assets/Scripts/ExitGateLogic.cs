@@ -40,7 +40,7 @@ public class ExitGateLogic : MonoBehaviour
     }
 
 
-    //Called by 
+    //Called by GameLogic. 
     public void UpdateLockStatus(bool setTo)
     {
         //Update the bool based on passed-in bool. 
@@ -55,7 +55,7 @@ public class ExitGateLogic : MonoBehaviour
         }
         else
         {
-            Debug.Log("Exit Gate Locking Sound and Visual Effects-- If this is even necessary!");
+            Debug.LogError("Error: UpdateLockStatus has been called but IsUnlocked is False. Was this intentional?");
         }
     }
 
