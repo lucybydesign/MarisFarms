@@ -77,10 +77,10 @@
     <Compile Include="Assets\Game Jam Menu Template\Scripts\SetAudioLevels.cs" />
     <Compile Include="Assets\Game Jam Menu Template\Scripts\ShowPanels.cs" />
     <Compile Include="Assets\Game Jam Menu Template\Scripts\StartOptions.cs" />
-    <Compile Include="Assets\KeyLogic.cs" />
     <Compile Include="Assets\Scripts\Camera2DFollow.cs" />
     <Compile Include="Assets\Scripts\GameLogic.cs" />
     <Compile Include="Assets\Scripts\GateLogic.cs" />
+    <Compile Include="Assets\Scripts\KeyLogic.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
     <Compile Include="Assets\Scripts\PacingEnemy.cs" />
   </ItemGroup>

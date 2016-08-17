@@ -129,8 +129,9 @@ public class Movement : MonoBehaviour
         }
 
          //movement 
-         //this restricts me to trveling in direction iam facing 
-         //being able to move forward and strafe is going to be an issue 
+         //needs to talk to pause menu 
+         u
+         //this restricts me to traveling in direction i am facing 
          transform.position += transform.right * m_speed;
 
         
