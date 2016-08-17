@@ -130,7 +130,7 @@ public class Movement : MonoBehaviour
 
          //movement 
          //needs to talk to pause menu 
-         u
+         //u
          //this restricts me to traveling in direction i am facing 
          transform.position += transform.right * m_speed;
 
