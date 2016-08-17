@@ -19,6 +19,7 @@ public class GameLogic : MonoBehaviour {
 
     //game logic variables
     public bool GameStarted; //necessary for preventing the timer from incrementing in menus
+    public GameObject ThisLevelsExit; 
 
 	// Use this for initialization
 	void Start ()
@@ -26,6 +27,11 @@ public class GameLogic : MonoBehaviour {
         //display total keys
         TotKeys.text = " / " + iTotalKeys.ToString();
         AlertText.text = "";
+
+        if(ThisLevelsExit == null)
+        {
+            Debug.Log("Houston we have a problem! Someone did not set the ThisLevelsExit variable in editor.");
+        }
     }
 	
 	// Update is called once per frame
@@ -37,8 +43,6 @@ public class GameLogic : MonoBehaviour {
             //Updating the time elapsed
             fTimeElapsed += Time.deltaTime;
         }
-            
-
         
         //Formatting the time elapsed so that it appears as minutes and seconds
         string minutes = Mathf.Floor(fTimeElapsed / 60).ToString("00");
@@ -54,7 +58,6 @@ public class GameLogic : MonoBehaviour {
     is called by ________ when the player collides with a key*/
     public void UpdateKeys()
     {
-        
         iKeysCollected += 1;
         //update the HUD's display of the number of keys we have
         CurrKeys.text = iKeysCollected.ToString();
@@ -62,7 +65,7 @@ public class GameLogic : MonoBehaviour {
     } 
     
 
-        /* This function is called by the GateLogic's collision logic
+     /* This function is called by the GateLogic's collision logic
      * and checks to see if the player has all the keys.
      If they don;t, it will not let them through and give them a pop up telling them
      they need the other keys. If they do, the player wins*/
@@ -70,14 +73,26 @@ public class GameLogic : MonoBehaviour {
     {
         if (iKeysCollected == iTotalKeys)
         {
+            //This is where the Exit Gate should unlock. "PlayWinCondition" should be called when the player hits the gate. 
             Debug.Log("Player can exit");
-            PlayWinCondition();
+
+            //Unlock Exit
+            ThisLevelsExit.GetComponent<ExitGateLogic>().UpdateLockStatus(true);
+
+            //PlayWinCondition();
+
+            
         }
         else
         {
             //call pop up that says you need to collect X number of keys
             Debug.Log("You don't have enough keys!");
             AlertText.text = "You don't have enough keys!";
+
+            /*
+            In the future, this should indicate how much farther the player needs to progress.
+           For example, It will tell the player they need 2 more keys out of 5, and maybe which area to go find them in.
+           */
         }
     }
    
