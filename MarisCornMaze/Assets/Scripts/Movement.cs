@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour
           need to know difference between strafing and mpoving to another area 
           nodes? collison areas? snapping to areas? */
     public float m_speed = 0.4f;
+    public float m_jumpback = 1.0f;
 
     private float m_fingerStartTime = 0.0f;
     private Vector2 m_fingerStartPos = Vector2.zero; //Used to store location of screen touch origin for mobile controls.
@@ -19,6 +20,8 @@ public class Movement : MonoBehaviour
     private float m_maxSwipeTime = 0.5f;
 
     private Vector3 m_faceDir = Vector3.zero;
+
+    private bool isStunned = false;
 
 
     // Use this for initialization
@@ -33,18 +36,13 @@ public class Movement : MonoBehaviour
         //used for the facing of the character based on swipe motions 
         Vector3 newDir = m_faceDir;
 
-        //this needs to be in relation to the direction we are going
-        //update the way the player is traveling 
-    //   
-
-        //rotate around z axis
-        // Vector3.forward
-
         //make him face direction the player swipes 
         //swipe detection- this code is adapted from another script-currently it does not support combinations of motions (cant do left AND down, only left OR down)
         if (Input.touchCount > 0)
         {
-
+            /* *******************************************************
+             * Touch input swipe sensing 
+             *********************************************************/
             foreach (Touch touch in Input.touches)
             {
                 switch (touch.phase)
@@ -121,32 +119,48 @@ public class Movement : MonoBehaviour
                 }
             }
         }
-        //if the direction has actually changed
-         if(newDir != m_faceDir)
-        {
-            transform.eulerAngles = newDir;
-            m_faceDir = newDir;
+        /* *******************************************************
+           * END Touch input swipe sensing 
+           *********************************************************/
+
+        //if the player isn't stunned
+        if (isStunned == false)
+        { 
+            //if the direction has actually changed
+            if (newDir != m_faceDir)
+            {
+                transform.eulerAngles = newDir;
+                m_faceDir = newDir;
+            }
+            //movement 
+            //this restricts me to traveling in direction i am facing 
+            transform.position += transform.right * m_speed;
         }
-
-         //movement 
-         //needs to talk to pause menu 
-         //u
-         //this restricts me to traveling in direction i am facing 
-         transform.position += transform.right * m_speed;
-
-        
-        //  transform.position += transform.forward * m_speed;
-        //when collide with enemy
-        //knock back stun
-
-
-
-
+    }
+    /*this function is called when the player runs into an enemy with knockback attribute */
+    public void KnockBack()
+    {
+        Debug.Log("KnockBack!");
+        transform.Translate(-transform.right * m_jumpback);
+        Stun();
+        //move the player back a bit in opposite direction 
+    }
+    /*this function is called when the player runs into an enemy with stun attribute */
+    public void Stun()
+    {
+        Debug.Log("Stunned!");
+        FindObjectOfType<GameLogic>().AlertText.text = "Stunned";
+        isStunned = true;
+        StartCoroutine(WaitForStun());
 
     }
 
-    public void KnockBack()
+    //stun timer 
+    IEnumerator WaitForStun()
     {
-        Debug.Log("KnockBakc!");
+        yield return new WaitForSeconds(1.0f);
+        isStunned = false;
+        //set text back to nothing 
+        FindObjectOfType<GameLogic>().AlertText.text = " ";
     }
 }
