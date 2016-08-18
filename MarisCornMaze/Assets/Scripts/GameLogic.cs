@@ -85,7 +85,6 @@ public class GameLogic : MonoBehaviour {
         else
         {
             //call pop up that says you need to collect X number of keys
-            Debug.Log("You don't have enough keys!");
             AlertText.text = "You don't have enough keys!";
 
             /*
@@ -99,6 +98,7 @@ public class GameLogic : MonoBehaviour {
     public void PlayWinCondition()
     {
         Debug.Log("You win!");
+        AlertText.text = "You win!";
     }
 
 
