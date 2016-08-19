@@ -13,7 +13,7 @@ public class ExitGateLogic : MonoBehaviour
     void Awake()
     {
         //Turning the collider on or off at startup based on the editor selection. 
-        myWall.SetActive(IsUnlocked);
+        myWall.SetActive(!(IsUnlocked));
     }
 
     // Update is called once per frame
@@ -28,6 +28,7 @@ public class ExitGateLogic : MonoBehaviour
         if(IsUnlocked == false)
         {
             Debug.Log("Feedback for hitting the locked Exit Gate!!!");
+            FindObjectOfType<GameLogic>().VerifyCanExit();
         }
 
         //If the player hits me while I am unlocked, and passes through, the game should end.
@@ -35,6 +36,7 @@ public class ExitGateLogic : MonoBehaviour
         {
             //end game
             Debug.Log("Exit Gate sez: Game should end now!!!!");
+            FindObjectOfType<GameLogic>().PlayWinCondition();
             //[Game Ending Feedback]
         }
     }
@@ -45,8 +47,9 @@ public class ExitGateLogic : MonoBehaviour
     {
         //Update the bool based on passed-in bool. 
         IsUnlocked = setTo; 
+
         //Actually change the collider
-        myWall.SetActive(IsUnlocked);
+        myWall.SetActive(!(IsUnlocked));
 
         //Lovely, lovely feedback. 
         if(IsUnlocked == true)

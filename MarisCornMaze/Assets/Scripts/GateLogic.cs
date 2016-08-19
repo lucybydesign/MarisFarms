@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GateLogic : MonoBehaviour
 {
+    public int KeysToOpen = 1;
+
     public GameObject myWall; //Attach a non-trigger box collider to this object. Set this object's active state based on lock status.
 
     //am i passing in the correct variable? -i dont think trigger canblock something from going through 
