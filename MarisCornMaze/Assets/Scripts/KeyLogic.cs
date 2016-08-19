@@ -3,7 +3,10 @@ using System.Collections;
 
 public class KeyLogic : MonoBehaviour {
 
+    public AudioClip keyCollection;
     private GameLogic GameScript;
+
+
 	// Use this for initialization
 	void Start ()
     {
@@ -26,8 +29,9 @@ public class KeyLogic : MonoBehaviour {
         {
             //Debug.Log("key collected!");
             GameScript.UpdateKeys();
+            StartCoroutine(GetComponent<SoundManager>().PlayDeath(keyCollection));
             //insert the animation feedback speil at a later date
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }

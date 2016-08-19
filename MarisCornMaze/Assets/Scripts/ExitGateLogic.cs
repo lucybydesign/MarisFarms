@@ -16,18 +16,12 @@ public class ExitGateLogic : MonoBehaviour
         myWall.SetActive(!(IsUnlocked));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         //If I am locked, the player cannot go through. 
         if(IsUnlocked == false)
         {
-            Debug.Log("Feedback for hitting the locked Exit Gate!!!");
+            //verify can exit and trigger feedback
             FindObjectOfType<GameLogic>().VerifyCanExit();
         }
 
@@ -37,7 +31,6 @@ public class ExitGateLogic : MonoBehaviour
             //end game
             Debug.Log("Exit Gate sez: Game should end now!!!!");
             FindObjectOfType<GameLogic>().PlayWinCondition();
-            //[Game Ending Feedback]
         }
     }
 
@@ -54,7 +47,8 @@ public class ExitGateLogic : MonoBehaviour
         //Lovely, lovely feedback. 
         if(IsUnlocked == true)
         {
-            Debug.Log("Exit Gate Unlock Sound and Visual Effects!");
+               Debug.Log("Exit Gate Unlock Sound and Visual Effects!"); 
+           //GetComponent<GameLogic>().ChangeAlertText("Exit Gate Unlocked!");
         }
         else
         {

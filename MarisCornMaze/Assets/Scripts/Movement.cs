@@ -12,6 +12,11 @@ public class Movement : MonoBehaviour
     public float m_speed = 0.4f;
     public float m_jumpback = 1.0f;
 
+    //sounds
+    public AudioClip stunSound;
+    public AudioClip turnSound;
+    public AudioClip collideSound;
+
     private float m_fingerStartTime = 0.0f;
     private Vector2 m_fingerStartPos = Vector2.zero; //Used to store location of screen touch origin for mobile controls.
 
@@ -131,6 +136,7 @@ public class Movement : MonoBehaviour
             {
                 transform.eulerAngles = newDir;
                 m_faceDir = newDir;
+                GetComponent<SoundManager>().PlaySingle(turnSound);
             }
             //movement 
             //this restricts me to traveling in direction i am facing 
@@ -149,8 +155,10 @@ public class Movement : MonoBehaviour
     public void Stun()
     {
       //  Debug.Log("Stunned!");
-        FindObjectOfType<GameLogic>().AlertText.text = "Stunned";
+        FindObjectOfType<GameLogic>().ChangeAlertText("Stunned");
         isStunned = true;
+        //play stun sound
+        GetComponent<SoundManager>().PlaySingle(stunSound);
         StartCoroutine(WaitForStun());
 
     }
@@ -161,6 +169,6 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         isStunned = false;
         //set text back to nothing 
-        FindObjectOfType<GameLogic>().AlertText.text = " ";
+        FindObjectOfType<GameLogic>().ChangeAlertText(" ");
     }
 }

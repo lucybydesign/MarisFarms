@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+//Aubrey 
 public class GameLogic : MonoBehaviour {
 
     //collectible variables
@@ -19,7 +19,12 @@ public class GameLogic : MonoBehaviour {
 
     //game logic variables
     public bool GameStarted; //necessary for preventing the timer from incrementing in menus
-    public GameObject ThisLevelsExit; 
+    public GameObject ThisLevelsExit;
+
+    public AudioClip GateLocked;
+    public AudioClip GateOpen;
+    public AudioClip AlertTextChanged;
+    public AudioClip VictoryTrill;
 
 	// Use this for initialization
 	void Start ()
@@ -73,23 +78,24 @@ public class GameLogic : MonoBehaviour {
     {
         if (iKeysCollected == iTotalKeys)
         {
-            //This is where the Exit Gate should unlock. "PlayWinCondition" should be called when the player hits the gate. 
-            Debug.Log("Player can exit");
+            //this is only getting checked when a gate is collided with
+            //it seems the keyts need to be colaling this 
 
+            //This is where the Exit Gate should unlock. "PlayWinCondition" should be called when the player hits the gate. 
             //Unlock Exit
             ThisLevelsExit.GetComponent<ExitGateLogic>().UpdateLockStatus(true);
-
-            //PlayWinCondition();
             
         }
         else
         {
             //call pop up that says you need to collect X number of keys
-            AlertText.text = "You don't have enough keys!";
-
+            ChangeAlertText("You don't have enough keys!");
+            GetComponent<SoundManager>().PlaySingle(GateLocked);
             /*
             In the future, this should indicate how much farther the player needs to progress.
            For example, It will tell the player they need 2 more keys out of 5, and maybe which area to go find them in.
+
+        the key count in upper right corner already does that- but a reminder pop up is good
            */
         }
     }
@@ -97,8 +103,29 @@ public class GameLogic : MonoBehaviour {
     //this function is called by the GateLogic attached to the finish line
     public void PlayWinCondition()
     {
-        Debug.Log("You win!");
-        AlertText.text = "You win!";
+        ChangeAlertText("You win!");
+        GetComponent<SoundManager>().PlaySingle(GateOpen);
+    }
+
+    /*Changes the text displayed on the alert messages and plays a sound when called*/
+    public void ChangeAlertText(string TextToDisplay)
+    {
+        //this is overwirting some sound effects
+        AlertText.text = TextToDisplay;
+        GetComponent<SoundManager>().PlaySingle(AlertTextChanged);
+        StartCoroutine(FlashText(AlertText.color, Color.white));
+    }
+
+    IEnumerator FlashText(Color initialcolor, Color newColor)
+    {
+        //plsce holfer colro values until later stuff helps us decide dynamic colors
+        AlertText.color = newColor;
+        yield return new WaitForSeconds(0.1f);
+        AlertText.color = initialcolor;
+        yield return new WaitForSeconds(0.1f);
+        AlertText.color = newColor;
+        yield return new WaitForSeconds(0.1f);
+        AlertText.color = initialcolor;
     }
 
 

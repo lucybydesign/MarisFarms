@@ -84,6 +84,8 @@
     <Compile Include="Assets\Scripts\GateLogic.cs" />
     <Compile Include="Assets\Scripts\KeyLogic.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\TutorialLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Game Jam Menu Template\Fonts\OpenSans\License!.txt" />

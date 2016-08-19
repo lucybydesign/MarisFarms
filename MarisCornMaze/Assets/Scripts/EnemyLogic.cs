@@ -43,8 +43,6 @@ public class EnemyLogic : MonoBehaviour {
         //only pacers move
         if (isPacer)
         {
-            
-
             //pausing game doesn't talk to this script at momement, so need to add that functio0naility to the pause script= probably a bool 
             transform.position += transform.right * fSpeed;
             //may need to disable the movment if the enemy hits player so it doesnt stun lock  
@@ -70,7 +68,7 @@ public class EnemyLogic : MonoBehaviour {
             
             if(isPacer)
             {
-                ChangeDirection();
+               // ChangeDirection();
             }
      
         }

@@ -10,7 +10,7 @@ public class GateLogic : MonoBehaviour
     //when the player runs into me, check if they have enough keys to get through
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.name);
+       // Debug.Log(other.name);
         if (other.name == "Player")
         {
             //We check to see if they have enough keys for state condition purposes
