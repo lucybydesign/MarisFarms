@@ -140,15 +140,15 @@ public class Movement : MonoBehaviour
     /*this function is called when the player runs into an enemy with knockback attribute */
     public void KnockBack()
     {
-        Debug.Log("KnockBack!");
-        transform.Translate(-transform.right * m_jumpback);
+       // Debug.Log("KnockBack!");
+        transform.position -= transform.right * m_jumpback;
         Stun();
         //move the player back a bit in opposite direction 
     }
     /*this function is called when the player runs into an enemy with stun attribute */
     public void Stun()
     {
-        Debug.Log("Stunned!");
+      //  Debug.Log("Stunned!");
         FindObjectOfType<GameLogic>().AlertText.text = "Stunned";
         isStunned = true;
         StartCoroutine(WaitForStun());
