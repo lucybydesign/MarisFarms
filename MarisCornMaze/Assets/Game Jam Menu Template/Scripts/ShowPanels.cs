@@ -7,10 +7,11 @@ public class ShowPanels : MonoBehaviour {
 	public GameObject optionsTint;							//Store a reference to the Game Object OptionsTint 
 	public GameObject menuPanel;							//Store a reference to the Game Object MenuPanel 
 	public GameObject pausePanel;							//Store a reference to the Game Object PausePanel 
+    public GameObject endgameplayPanel;                     //Store a reference to the Game Object []
 
 
-	//Call this function to activate and display the Options panel during the main menu
-	public void ShowOptionsPanel()
+    //Call this function to activate and display the Options panel during the main menu
+    public void ShowOptionsPanel()
 	{
 		optionsPanel.SetActive(true);
 		optionsTint.SetActive(true);
@@ -49,4 +50,15 @@ public class ShowPanels : MonoBehaviour {
 		optionsTint.SetActive(false);
 
 	}
+
+    //Same two functions for when gameplay ends (the player has won), and you need to show the panels. 
+    public void ShowEndGamePanel()
+    {
+        endgameplayPanel.SetActive(true);
+    }
+
+    public void HideEndGamePanel()
+    {
+        endgameplayPanel.SetActive(false);
+    }
 }

@@ -19,7 +19,7 @@ public class GameLogic : MonoBehaviour {
 
     //game logic variables
     public bool GameStarted; //necessary for preventing the timer from incrementing in menus
-    public GameObject ThisLevelsExit;
+    public GameObject ThisLevelsExit; //Gameobject referencing the Exit Gate object in the current level. 
 
     public AudioClip GateLocked;
     public AudioClip GateOpen;
@@ -68,7 +68,6 @@ public class GameLogic : MonoBehaviour {
         CurrKeys.text = iKeysCollected.ToString();
       //  Debug.Log("Number of keys =" + iKeysCollected);
     } 
-    
 
      /* This function is called by the GateLogic's collision logic
      * and checks to see if the player has all the keys.
@@ -76,35 +75,26 @@ public class GameLogic : MonoBehaviour {
      they need the other keys. If they do, the player wins*/
     public void VerifyCanExit()
     {
-        if (iKeysCollected == iTotalKeys)
+        if (iKeysCollected == iTotalKeys) 
         {
-            //this is only getting checked when a gate is collided with
-            //it seems the keyts need to be colaling this 
-
             //This is where the Exit Gate should unlock. "PlayWinCondition" should be called when the player hits the gate. 
             //Unlock Exit
             ThisLevelsExit.GetComponent<ExitGateLogic>().UpdateLockStatus(true);
-            
         }
         else
         {
             //call pop up that says you need to collect X number of keys
             ChangeAlertText("You don't have enough keys!");
             GetComponent<SoundManager>().PlaySingle(GateLocked);
-            /*
-            In the future, this should indicate how much farther the player needs to progress.
-           For example, It will tell the player they need 2 more keys out of 5, and maybe which area to go find them in.
-
-        the key count in upper right corner already does that- but a reminder pop up is good
-           */
         }
     }
    
-    //this function is called by the GateLogic attached to the finish line
+    //this function is called by the ExitGateLogic attached to the ThisLevelExit object.
     public void PlayWinCondition()
     {
         ChangeAlertText("You win!");
         GetComponent<SoundManager>().PlaySingle(GateOpen);
+        
     }
 
     /*Changes the text displayed on the alert messages and plays a sound when called*/
@@ -118,7 +108,7 @@ public class GameLogic : MonoBehaviour {
 
     IEnumerator FlashText(Color initialcolor, Color newColor)
     {
-        //plsce holfer colro values until later stuff helps us decide dynamic colors
+        //place holder color values until later stuff helps us decide dynamic colors
         AlertText.color = newColor;
         yield return new WaitForSeconds(0.1f);
         AlertText.color = initialcolor;
@@ -126,6 +116,7 @@ public class GameLogic : MonoBehaviour {
         AlertText.color = newColor;
         yield return new WaitForSeconds(0.1f);
         AlertText.color = initialcolor;
+        
     }
 
 

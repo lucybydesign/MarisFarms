@@ -3,6 +3,9 @@ using System.Collections;
 
 public class ExitGateLogic : MonoBehaviour
 {
+    /*Attach this script to the object meant to be the Exit Gate for the level. 
+    It functions differently than other gates, so do NOT also attach "GateLogic" to an object using this script.*/
+    
     //Self-explanatory. Most important boolean in script. 
     public bool IsUnlocked = false;
 
@@ -10,10 +13,11 @@ public class ExitGateLogic : MonoBehaviour
     public GameObject myWall; 
 
     
-    void Awake()
+    void Start()
     {
-        //Turning the collider on or off at startup based on the editor selection. 
-        myWall.SetActive(!(IsUnlocked));
+        //When the game begins, I should not allow the player to go through.
+        myWall.SetActive(true);
+        IsUnlocked = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -39,9 +43,9 @@ public class ExitGateLogic : MonoBehaviour
     public void UpdateLockStatus(bool setTo)
     {
         //Update the bool based on passed-in bool. 
-        IsUnlocked = setTo; 
+        IsUnlocked = setTo;  
 
-        //Actually change the collider
+        //Actually change the collider. Has to be weird inverse because otherwise the collision will still be up. 
         myWall.SetActive(!(IsUnlocked));
 
         //Lovely, lovely feedback. 
@@ -55,6 +59,4 @@ public class ExitGateLogic : MonoBehaviour
             Debug.LogError("Error: UpdateLockStatus has been called but IsUnlocked is False. Was this intentional?");
         }
     }
-
-    
 }
