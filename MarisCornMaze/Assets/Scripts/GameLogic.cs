@@ -19,8 +19,13 @@ public class GameLogic : MonoBehaviour {
 
     //game logic variables
     public bool GameStarted; //necessary for preventing the timer from incrementing in menus
-    public GameObject ThisLevelsExit; //Gameobject referencing the Exit Gate object in the current level. 
 
+    //Game object references
+    public GameObject ThisLevelsExit; //Gameobject referencing the Exit Gate object in the current level. 
+    public GameObject FinalTimeText; //references the text object showing the time the player took, updated at end of level. 
+    public GameObject HUD; //needed so we can hide the hud when it is not time to use it. 
+
+    //audio clips
     public AudioClip GateLocked;
     public AudioClip GateOpen;
     public AudioClip AlertTextChanged;
@@ -45,8 +50,20 @@ public class GameLogic : MonoBehaviour {
 
         if(GameStarted == true)
         {
+            if(HUD.activeInHierarchy == false)
+            {
+                HUD.SetActive(true);
+            }
+
             //Updating the time elapsed
             fTimeElapsed += Time.deltaTime;
+        }
+        else
+        {
+            if (HUD.activeInHierarchy == true)
+            {
+                HUD.SetActive(false);
+            }
         }
         
         //Formatting the time elapsed so that it appears as minutes and seconds
@@ -93,8 +110,17 @@ public class GameLogic : MonoBehaviour {
     public void PlayWinCondition()
     {
         ChangeAlertText("You win!");
-        GetComponent<SoundManager>().PlaySingle(GateOpen);
-        
+        GetComponent<SoundManager>().PlaySingle(GateOpen); //Play the sound
+
+        //Stop the timer and register the values. 
+        GameStarted = false; //trying it this way first. Unsure if GameEnded is necessary.
+
+        string minutes = Mathf.Floor(fTimeElapsed / 60).ToString("00");
+        string seconds = (fTimeElapsed % 60).ToString("00");
+
+        FinalTimeText.GetComponent<Text>().text = "Completed in " + minutes + ":" + seconds;
+
+        FindObjectOfType<ShowPanels>().ShowEndGamePanel();
     }
 
     /*Changes the text displayed on the alert messages and plays a sound when called*/

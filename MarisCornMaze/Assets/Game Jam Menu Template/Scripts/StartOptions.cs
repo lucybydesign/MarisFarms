@@ -36,6 +36,8 @@ public class StartOptions : MonoBehaviour {
 		playMusic = GetComponent<PlayMusic> ();
 
         GameScript = FindObjectOfType<GameLogic>();
+
+        showPanels.ShowMenu(); 
     }
 
 

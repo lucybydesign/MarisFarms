@@ -61,4 +61,5 @@ public class ShowPanels : MonoBehaviour {
     {
         endgameplayPanel.SetActive(false);
     }
+
 }
